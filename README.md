@@ -8,7 +8,7 @@
 - Install Chromium depot_tools
 - Install Chomium dependencies
 - Update Chromium sources
-- Update separate WebKit sources
+- Update separate WebKit sources automatically
 
 ## What not?
 

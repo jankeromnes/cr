@@ -29,7 +29,7 @@ do_clone() {
 
 
   # Make sure we have depot_tools
-  if which $$gclient > /dev/null; then
+  command -v gclient >/dev/null 2>&1 || {
     if [ -z "$DEPOT_TOOLS_HOME" ]; then
       DEPOT_TOOLS_HOME="$CHROMIUM_HOME/depot_tools"
     fi
@@ -40,8 +40,10 @@ do_clone() {
     fi
     git clone https://git.chromium.org/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME
     export PATH="$PATH:$DEPOT_TOOLS_HOME"
-    # TODO add to PATH
-  fi
+    if ! grep -qs "$DEPOT_TOOLS_HOME" $HOME/.bashrc; then
+      echo "export PATH=\"\$PATH:$DEPOT_TOOLS_HOME\"" >> $HOME/.bashrc
+    fi
+  }
 
 
   # Check if the `src` folder already exists
@@ -104,14 +106,7 @@ do_update() {
   if cat ../.gclient | grep "\"src/third_party/WebKit/*\" *: *None" > /dev/null; then
     # Special WebKit update
     ./tools/sync-webkit-git.py
-    cd third_party/WebKit
-    git branch
-    echo -n "[third_party/WebKit] Do you want to run \`git rebase gclient\`? [y/N]:"
-    read WEBKIT_UPDATE_CUSTOM
-    if [ "$WEBKIT_UPDATE_CUSTOM" == "y" ]; then
-      git rebase gclient
-    fi
-    cd ../..
+    cd third_party/WebKit && git rebase gclient && cd ../..
   fi
   gclient sync
   echo "Everything up-to-date."
