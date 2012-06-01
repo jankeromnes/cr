@@ -28,3 +28,11 @@
        help      Display this helpful message
        update    Update a Chromium repository
 
+## Install
+
+    sudo wget -O /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
+
+## Uninstall
+
+    sudo rm -rf /usr/local/bin/cr
+
