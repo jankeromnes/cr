@@ -5,13 +5,13 @@
 ## What can it do for me?
 
 - Download fresh Chromium sources
+- Build Chromium browser
 - Update Chromium sources
 - Update separate WebKit sources automatically
 - Install Chromium depot_tools and dependencies
 
 ## What not?
 
-- Build Chromium (soon)
 - Run Chromium (soon)
 - Install separate WebKit sources (soon)
 - Help upload Chromium patches (soon)
@@ -24,8 +24,9 @@
     The cr commands are:
 
        clone     Clone the Chromium sources into a new repository
-       help      Display this helpful message
+       build     Build the Chromium browser from sources
        update    Update a Chromium repository
+       help      Display this helpful message
 
 ## Install
 

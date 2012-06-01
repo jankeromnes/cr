@@ -5,8 +5,9 @@ show_help() {
   echo ""
   echo "The cr commands are:"
   echo "   clone     Clone the Chromium sources into a new repository"
-  echo "   help      Display this helpful message"
+  echo "   build     Build the Chromium browser from sources"
   echo "   update    Update a Chromium repository"
+  echo "   help      Display this helpful message"
   echo ""
 }
 
@@ -83,18 +84,16 @@ do_clone() {
 
   # Get the sources
   echo "Downloading chromium, grab a coffee..."
-  gclient sync --nohooks
+  gclient sync --nohooks --jobs=16
   ./src/build/install-build-deps.sh
-  gclient sync
+  gclient sync --jobs=16
 
   echo "If there were no errors above, cloning in $CHROMIUM_HOME was successful."
   echo "Welcome to your new Chromium!"
 }
 
-do_update() {
+assert_src() {
   if [ "`basename $PWD`" == "src" ]; then
-    echo "Updating..."
-  else
     echo -n "WARNING: You're not in \"src\", do you know what you are doing? [Y/n]:"
     read I_THE_MAN
     if [ "$I_THE_MAN" == "n" ]; then
@@ -102,13 +101,33 @@ do_update() {
       exit 0
     fi
   fi
+}
+
+do_build() {
+  BUILD_TYPE="Release"
+  BUILD_CORES="16"
+  echo -n "BUILDTYPE? [$BUILD_TYPE]:"
+  read BUILD_TYPE_CUSTOM
+  if [ -n $BUILD_TYPE_CUSTOM ]; then
+    BUILD_TYPE="$BUILD_TYPE_CUSTOM"
+  fi
+  echo -n "Use how many cores? [$BUILD_CORES]:"
+  read BUILD_CORES_CUSTOM
+  if [ -n $BUILD_CORES_CUSTOM ]; then
+    BUILD_CORES="$BUILD_CORES_CUSTOM"
+  fi
+  make chrome BUILDTYPE="$BUILD_TYPE" -j$BUILD_CORES
+}
+
+do_update() {
+  echo "Updating..."
   git pull --rebase
   if cat ../.gclient | grep "\"src/third_party/WebKit/*\" *: *None" > /dev/null; then
     # Special WebKit update
     ./tools/sync-webkit-git.py
     cd third_party/WebKit && git rebase gclient && cd ../..
   fi
-  gclient sync
+  gclient sync --jobs=16
   echo "Everything up-to-date."
 }
 
@@ -116,7 +135,12 @@ case $1 in
   clone)
     do_clone
   ;;
+  build)
+    assert_src
+    do_build
+  ;;
   update)
+    assert_src
     do_update
   ;;
   *)
