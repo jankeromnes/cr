@@ -1,12 +1,12 @@
 # CR
 
-cr is a utility to help you work on the Chromium browser sources
+`cr` is a utility to help you work on the Chromium browser sources
 
 ## What can it do?
 
+- Download Chromium sources
 - Install Chromium depot_tools
 - Install Chomium dependencies
-- Download Chromium sources
 - Update Chromium sources
 - Update separate WebKit sources
 
@@ -20,11 +20,11 @@ cr is a utility to help you work on the Chromium browser sources
 
 ## Usage
 
-usage: cr <command> [<args>]
+    usage: cr <command> [<args>]
 
-The cr commands are:
+    The cr commands are:
 
-- clone     Clone the Chromium sources into a new repository
-- help      Display this helpful message
-- update    Update a Chromium repository
+       clone     Clone the Chromium sources into a new repository
+       help      Display this helpful message
+       update    Update a Chromium repository
 
