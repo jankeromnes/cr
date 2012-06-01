@@ -93,7 +93,7 @@ do_clone() {
 }
 
 assert_src() {
-  if [ "`basename $PWD`" == "src" ]; then
+  if [ "`basename $PWD`" != "src" ]; then
     echo -n "WARNING: You're not in \"src\", do you know what you are doing? [Y/n]:"
     read I_THE_MAN
     if [ "$I_THE_MAN" == "n" ]; then
