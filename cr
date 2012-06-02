@@ -109,15 +109,15 @@ do_build() {
   BUILD_CORES="16"
   echo -n "BUILDTYPE? [$BUILD_TYPE]:"
   read BUILD_TYPE_CUSTOM
-  if [ -n $BUILD_TYPE_CUSTOM ]; then
+  if [ -n "$BUILD_TYPE_CUSTOM" ]; then
     BUILD_TYPE="$BUILD_TYPE_CUSTOM"
   fi
   echo -n "Use how many cores? [$BUILD_CORES]:"
   read BUILD_CORES_CUSTOM
-  if [ -n $BUILD_CORES_CUSTOM ]; then
+  if [ -n "$BUILD_CORES_CUSTOM" ]; then
     BUILD_CORES="$BUILD_CORES_CUSTOM"
   fi
-  make chrome BUILDTYPE="$BUILD_TYPE" -j$BUILD_CORES
+  make chrome BUILDTYPE="$BUILD_TYPE" -j"$BUILD_CORES"
 }
 
 do_update() {
