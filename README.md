@@ -4,16 +4,16 @@
 
 ## What can it do for me?
 
-- Download fresh Chromium sources
-- Build Chromium browser
-- Update Chromium sources
-- Update separate WebKit sources automatically
-- Install Chromium depot_tools and dependencies
+- Download fresh Chromium sources (`cr clone`)
+- Build Chromium browser (`cr build`)
+- Update Chromium sources (`cr update`)
+- Install Chromium depot_tools and dependencies (`cr clone` checks if you have them and install them if not)
+- Install separate WebKit sources (`cr webkit` replaces your `third_party/WebKit` with actual WebKit sources)
+- Update separate WebKit sources automatically (`cr update` detects a separate WebKit and updates it as well)
 
 ## What not?
 
 - Run Chromium (soon)
-- Install separate WebKit sources (soon)
 - Help upload Chromium patches (soon)
 - Help upload WebKit patches (soon)
 

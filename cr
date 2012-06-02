@@ -6,7 +6,8 @@ show_help() {
   echo "The cr commands are:"
   echo "   clone     Clone the Chromium sources into a new repository"
   echo "   build     Build the Chromium browser from sources"
-  echo "   update    Update a Chromium repository"
+  echo "   update    Update a Chromium repository and its dependencies"
+  echo "   webkit    Clone separate WebKit sources into your repository"
   echo "   help      Display this helpful message"
   echo ""
 }
@@ -131,6 +132,16 @@ do_update() {
   echo "Everything up-to-date."
 }
 
+do_webkit() {
+  rm -rf third_party/WebKit
+  git clone git://git.webkit.org/WebKit.git third_party/WebKit
+  cat ../.gclient | grep -v "WebKit" > ../.gclient.old
+  cat ../.gclient.old | grep -B42 "custom_deps" > ../.gclient
+  echo "      \"src/third_party/WebKit\": None," >> ../.gclient
+  cat ../.gclient.old | grep -B1 -A42 "safesync_url" >> ../.gclient
+  rm -rf ../.gclient.old
+}
+
 case $1 in
   clone)
     do_clone
@@ -142,6 +153,10 @@ case $1 in
   update)
     assert_src
     do_update
+  ;;
+  webkit)
+    assert_src
+    do_webkit
   ;;
   *)
     show_help
