@@ -29,7 +29,7 @@
        update    Update a Chromium repository and its dependencies
        help      Display this helpful message
 
-## Install or Update
+## Install
 
     sudo wget -O /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
 
