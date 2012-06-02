@@ -25,8 +25,8 @@
 
        clone     Clone the Chromium sources into a new repository
        build     Build the Chromium browser from sources
-       webkit    Clone separate WebKit sources into your repository
        update    Update a Chromium repository and its dependencies
+       webkit    Clone separate WebKit sources into your repository
        help      Display this helpful message
 
 ## Install
