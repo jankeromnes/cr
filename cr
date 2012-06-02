@@ -121,7 +121,7 @@ do_build() {
 
 do_update() {
   echo "Updating..."
-  git pull --rebase
+  git pull --rebase origin master
   if cat ../.gclient | grep "\"src/third_party/WebKit/*\" *: *None" > /dev/null; then
     # Special WebKit update
     ./tools/sync-webkit-git.py
