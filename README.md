@@ -26,6 +26,7 @@
        clone     Clone the Chromium sources into a new repository
        clean     Remove a previously built Chromium browser
        build     Build the Chromium browser from sources
+       devtools  Setup hard links for Web Inspector files
        update    Update a Chromium repository and its dependencies
        webkit    Clone separate WebKit sources into your repository
        help      Display this helpful message

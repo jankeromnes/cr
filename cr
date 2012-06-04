@@ -7,6 +7,7 @@ show_help() {
   echo "   clone     Clone the Chromium sources into a new repository"
   echo "   clean     Remove a previously built Chromium browser"
   echo "   build     Build the Chromium browser from sources"
+  echo "   devtools  Setup hard links for Web Inspector files"
   echo "   update    Update a Chromium repository and its dependencies"
   echo "   webkit    Clone separate WebKit sources into your repository"
   echo "   help      Display this helpful message"
@@ -125,6 +126,17 @@ do_build() {
   make chrome BUILDTYPE="$BUILD_TYPE" -j"$BUILD_CORES"
 }
 
+do_devtools() {
+  GYP_FILE="$HOME/.gyp/include.gypi"
+  if [ -f "$GYP_FILE" ]; then
+    # TODO patch file
+  else
+    cat "{\n  'variables': {\n    'debug_devtools': 1\n  }\n}" > "$GYP_FILE"
+    gclient runhooks
+  fi
+
+}
+
 do_update() {
   echo "Updating..."
   git pull --rebase origin master
@@ -158,6 +170,9 @@ case $1 in
   build)
     assert_src
     do_build
+  ;;
+  devtools)
+    do_devtools
   ;;
   update)
     assert_src
