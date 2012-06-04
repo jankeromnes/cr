@@ -134,7 +134,9 @@ do_devtools() {
   else
     cat "{\n  'variables': {\n    'debug_devtools': 1\n  }\n}" > "$GYP_FILE"
   fi
+  echo "Calling gclient runhooks..."
   gclient runhooks
+  echo "Done."
 }
 
 do_update() {
@@ -172,6 +174,7 @@ case $1 in
     do_build
   ;;
   devtools)
+    assert_src
     do_devtools
   ;;
   update)
