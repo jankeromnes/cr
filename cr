@@ -129,12 +129,12 @@ do_build() {
 do_devtools() {
   GYP_FILE="$HOME/.gyp/include.gypi"
   if [ -f "$GYP_FILE" ]; then
-    # TODO patch file
+    echo "WARNING: $GYP_FILE already exists! Leaving as is:"
+    cat "$GYP_FILE"
   else
     cat "{\n  'variables': {\n    'debug_devtools': 1\n  }\n}" > "$GYP_FILE"
-    gclient runhooks
   fi
-
+  gclient runhooks
 }
 
 do_update() {
