@@ -31,7 +31,6 @@ do_clone() {
     CHROMIUM_HOME="$CHROMIUM_HOME_CUSTOM"
   fi
 
-
   # Make sure we have depot_tools
   command -v gclient >/dev/null 2>&1 || {
     if [ -z "$DEPOT_TOOLS_HOME" ]; then
@@ -45,10 +44,18 @@ do_clone() {
     git clone https://git.chromium.org/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME
     export PATH="$PATH:$DEPOT_TOOLS_HOME"
     if ! grep -qs "$DEPOT_TOOLS_HOME" $HOME/.bashrc; then
-      echo "export PATH=\"\$PATH:$DEPOT_TOOLS_HOME\"" >> $HOME/.bashrc
+      echo -e "\n# add chromium's depot_tools to the PATH" >> "$HOME/.bashrc"
+      echo "export PATH=\"\$PATH:$DEPOT_TOOLS_HOME\"" >> "$HOME/.bashrc"
     fi
   }
 
+  # Configure ninja
+  if [ "$GYP_GENERATORS" != "*ninja*" ]; then
+    echo "Configuring ninja..."
+    export GYP_GENERATORS="ninja"
+    echo -e "\n# build chromium with ninja (faster than make)" >> "$HOME/.bashrc"
+    echo "export GYP_GENERATORS=\"ninja\"" >> "$HOME/.bashrc"
+  fi
 
   # Check if the `src` folder already exists
   if [ -d "$CHROMIUM_HOME/src" ]; then
