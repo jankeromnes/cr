@@ -50,7 +50,7 @@ do_clone() {
   }
 
   # Configure ninja
-  if [ "$GYP_GENERATORS" != "*ninja*" ]; then
+  if [ "$GYP_GENERATORS" != "ninja" ]; then
     echo "Configuring ninja..."
     export GYP_GENERATORS="ninja"
     echo -e "\n# build chromium with ninja (faster than make)" >> "$HOME/.bashrc"
@@ -97,6 +97,7 @@ do_clone() {
   gclient sync --nohooks --jobs=16
   ./src/build/install-build-deps.sh
   gclient sync --jobs=16
+  ./src/build/gyp_chromium
 
   echo "If there were no errors above, cloning in $CHROMIUM_HOME was successful."
   echo "Welcome to your new Chromium!"
@@ -130,7 +131,8 @@ do_build() {
   if [ -n "$BUILD_CORES_CUSTOM" ]; then
     BUILD_CORES="$BUILD_CORES_CUSTOM"
   fi
-  if [ "$GYP_GENERATORS" == "*ninja*" ]; then
+  if [ "$GYP_GENERATORS" == "ninja" ]; then
+    mkdir -p "out/$BUILD_TYPE" > /dev/null 2>&1
     ninja -C "out/$BUILD_TYPE" chrome -j"$BUILD_CORES"
   else
     make chrome BUILDTYPE="$BUILD_TYPE" -j"$BUILD_CORES"
