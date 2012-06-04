@@ -123,7 +123,11 @@ do_build() {
   if [ -n "$BUILD_CORES_CUSTOM" ]; then
     BUILD_CORES="$BUILD_CORES_CUSTOM"
   fi
-  make chrome BUILDTYPE="$BUILD_TYPE" -j"$BUILD_CORES"
+  if [ "$GYP_GENERATORS" == "*ninja*" ]; then
+    ninja -C "out/$BUILD_TYPE" chrome -j"$BUILD_CORES"
+  else
+    make chrome BUILDTYPE="$BUILD_TYPE" -j"$BUILD_CORES"
+  fi
 }
 
 do_devtools() {
@@ -134,7 +138,7 @@ do_devtools() {
   else
     cat "{\n  'variables': {\n    'debug_devtools': 1\n  }\n}" > "$GYP_FILE"
   fi
-  echo "Calling gclient runhooks..."
+  echo -n "Calling gclient runhooks... "
   gclient runhooks
   echo "Done."
 }
