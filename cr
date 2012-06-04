@@ -5,6 +5,7 @@ show_help() {
   echo ""
   echo "The cr commands are:"
   echo "   clone     Clone the Chromium sources into a new repository"
+  echo "   clean     Remove a previously built Chromium browser"
   echo "   build     Build the Chromium browser from sources"
   echo "   update    Update a Chromium repository and its dependencies"
   echo "   webkit    Clone separate WebKit sources into your repository"
@@ -104,6 +105,10 @@ assert_src() {
   fi
 }
 
+do_clean() {
+  rm -rf out
+}
+
 do_build() {
   BUILD_TYPE="Release"
   BUILD_CORES="16"
@@ -145,6 +150,10 @@ do_webkit() {
 case $1 in
   clone)
     do_clone
+  ;;
+  clean)
+    assert_src
+    do_clean
   ;;
   build)
     assert_src
