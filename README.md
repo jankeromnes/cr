@@ -33,9 +33,13 @@
 
 ## Install
 
+(or **Update**)
+
     sudo wget -O /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
 
-or
+---
+
+(also works with `curl`)
 
     sudo curl -o /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
 
