@@ -7,9 +7,9 @@
 - Download fresh Chromium sources (`cr clone`)
 - Build Chromium browser (`cr build`)
 - Update Chromium sources (`cr update`)
-- Install Chromium depot_tools and dependencies (`cr clone` checks if you have them and installs them if not)
-- Download separate WebKit sources (`cr webkit` replaces your `third_party/WebKit` with actual WebKit sources)
-- Update separate WebKit sources automatically (`cr update` detects separate WebKits and updates them as well)
+- Install Chromium depot\_tools and dependencies (`cr clone` checks if you have them and installs them if not)
+- Download separate WebKit sources (`cr webkit` replaces your `third_party/WebKit` with a fresh WebKit clone)
+- Update separate WebKit sources automatically (`cr update` detects separate WebKits and updates them accordingly)
 
 ## What not?
 
@@ -34,6 +34,10 @@
 ## Install
 
     sudo wget -O /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
+
+or
+
+    sudo curl -o /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
 
 ## Uninstall
 
