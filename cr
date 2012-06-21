@@ -82,7 +82,7 @@ do_clone() {
   echo "      \"src/chrome/tools/test/reference_build/chrome_linux\": None," >> .gclient
   echo "      \"src/chrome/tools/test/reference_build/chrome_mac\": None," >> .gclient
   echo "      \"src/chrome/tools/test/reference_build/chrome_win\": None" >> .gclient
-  cat .gclient.old | grep -B1 -A42 "safesync_url" >> .gclient
+  cat .gclient.old | grep -A42 "custom_deps" | tail -n +2 >> .gclient
   rm -rf .gclient.old
 
   # Allow users to customize the `.gclient` file
@@ -171,7 +171,7 @@ do_webkit() {
   cat ../.gclient | grep -v "WebKit" > ../.gclient.old
   cat ../.gclient.old | grep -B42 "custom_deps" > ../.gclient
   echo "      \"src/third_party/WebKit\": None," >> ../.gclient
-  cat ../.gclient.old | grep -B1 -A42 "safesync_url" >> ../.gclient
+  cat ../.gclient.old | grep -A42 "custom_deps" | tail -n +2 >> ../.gclient
   rm -rf ../.gclient.old
 }
 
