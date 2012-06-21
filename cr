@@ -116,6 +116,7 @@ assert_src() {
 
 do_clean() {
   rm -rf out
+  gclient runhooks
 }
 
 do_build() {
