@@ -121,7 +121,14 @@ do_clean() {
 
 do_build() {
   BUILD_TYPE="Release"
-  BUILD_CORES="16"
+  if [ -d "$HOME/goma" ]; then
+    BUILD_CORES="500"
+  else
+    BUILD_CORES="16"
+  fi
+  if [ -z "$TARGET" ]; then
+    TARGET="chrome"
+  fi
   echo -n "BUILDTYPE? [$BUILD_TYPE]:"
   read BUILD_TYPE_CUSTOM
   if [ -n "$BUILD_TYPE_CUSTOM" ]; then
@@ -134,9 +141,9 @@ do_build() {
   fi
   if [ "$GYP_GENERATORS" == "ninja" ]; then
     mkdir -p "out/$BUILD_TYPE" > /dev/null 2>&1
-    ninja -C "out/$BUILD_TYPE" chrome -j"$BUILD_CORES"
+    ninja -C "out/$BUILD_TYPE" $TARGET"" -j"$BUILD_CORES"
   else
-    make chrome BUILDTYPE="$BUILD_TYPE" -j"$BUILD_CORES"
+    make "$TARGET" BUILDTYPE="$BUILD_TYPE" -j"$BUILD_CORES"
   fi
 }
 
