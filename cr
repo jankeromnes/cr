@@ -129,6 +129,11 @@ do_build() {
   if [ -z "$TARGET" ]; then
     TARGET="chrome"
   fi
+  echo -n "TARGET? [$TARGET]:"
+  read TARGET_CUSTOM
+  if [ -n "$TARGET_CUSTOM" ]; then
+    TARGET="$TARGET_CUSTOM"
+  fi
   echo -n "BUILDTYPE? [$BUILD_TYPE]:"
   read BUILD_TYPE_CUSTOM
   if [ -n "$BUILD_TYPE_CUSTOM" ]; then
