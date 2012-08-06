@@ -8,6 +8,7 @@ show_help() {
   echo "   clean     Remove a previously built Chromium browser"
   echo "   build     Build the Chromium browser from sources"
   echo "   devtools  Setup hard links for Web Inspector files"
+  echo "   runhooks  Run gclient hooks"
   echo "   update    Update a Chromium repository and its dependencies"
   echo "   webkit    Clone separate WebKit sources into your repository"
   echo "   help      Display this helpful message"
@@ -165,6 +166,10 @@ do_devtools() {
   echo "Done."
 }
 
+do_runhooks() {
+  gclient runhooks
+}
+
 do_update() {
   echo "Updating..."
   git pull --rebase origin master
@@ -202,6 +207,10 @@ case $1 in
   devtools)
     assert_src
     do_devtools
+  ;;
+  runhooks)
+    assert_src
+    do_runhooks
   ;;
   update)
     assert_src
