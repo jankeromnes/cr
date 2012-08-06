@@ -8,7 +8,8 @@ show_help() {
   echo "   clean     Remove a previously built Chromium browser"
   echo "   build     Build the Chromium browser from sources"
   echo "   devtools  Setup hard links for Web Inspector files"
-  echo "   runhooks  Run gclient hooks"
+  echo "   gclient   Install gclient and the depot_tools"
+  echo "   runhooks  Call gclient runhooks"
   echo "   update    Update a Chromium repository and its dependencies"
   echo "   webkit    Clone separate WebKit sources into your repository"
   echo "   help      Display this helpful message"
@@ -33,22 +34,7 @@ do_clone() {
   fi
 
   # Make sure we have depot_tools
-  command -v gclient >/dev/null 2>&1 || {
-    if [ -z "$DEPOT_TOOLS_HOME" ]; then
-      DEPOT_TOOLS_HOME="$CHROMIUM_HOME/depot_tools"
-    fi
-    echo -n "Where should I install depot_tools? [$DEPOT_TOOLS_HOME]:"
-    read DEPOT_TOOLS_HOME_CUSTOM
-    if [ -n "$DEPOT_TOOLS_HOME_CUSTOM" ]; then
-      DEPOT_TOOLS_HOME="$DEPOT_TOOLS_HOME_CUSTOM"
-    fi
-    git clone https://git.chromium.org/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME
-    export PATH="$PATH:$DEPOT_TOOLS_HOME"
-    if ! grep -qs "$DEPOT_TOOLS_HOME" $HOME/.bashrc; then
-      echo -e "\n# add chromium's depot_tools to the PATH" >> "$HOME/.bashrc"
-      echo "export PATH=\"\$PATH:$DEPOT_TOOLS_HOME\"" >> "$HOME/.bashrc"
-    fi
-  }
+  do_gclient
 
   # Configure ninja
   if [ "$GYP_GENERATORS" != "ninja" ]; then
@@ -153,6 +139,26 @@ do_build() {
   fi
 }
 
+do_gclient() {
+  command -v gclient >/dev/null 2>&1 || {
+    if [ -z "$DEPOT_TOOLS_HOME" ]; then
+      DEPOT_TOOLS_HOME="$CHROMIUM_HOME/depot_tools"
+    fi
+    echo -n "Where should I install depot_tools? [$DEPOT_TOOLS_HOME]:"
+    read DEPOT_TOOLS_HOME_CUSTOM
+    if [ -n "$DEPOT_TOOLS_HOME_CUSTOM" ]; then
+      DEPOT_TOOLS_HOME="$DEPOT_TOOLS_HOME_CUSTOM"
+    fi
+    git clone https://git.chromium.org/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME
+    export PATH="$PATH:$DEPOT_TOOLS_HOME"
+    if ! grep -qs "$DEPOT_TOOLS_HOME" $HOME/.bashrc; then
+      echo -e "\n# add chromium's depot_tools to the PATH" >> "$HOME/.bashrc"
+      echo "export PATH=\"\$PATH:$DEPOT_TOOLS_HOME\"" >> "$HOME/.bashrc"
+    fi
+  }
+  echo "gclient is installed as $(which gclient)"
+}
+
 do_devtools() {
   GYP_FILE="$HOME/.gyp/include.gypi"
   if [ -f "$GYP_FILE" ]; then
@@ -207,6 +213,9 @@ case $1 in
   devtools)
     assert_src
     do_devtools
+  ;;
+  gclient)
+    do_gclient
   ;;
   runhooks)
     assert_src
