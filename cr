@@ -181,8 +181,7 @@ do_update() {
   git pull --rebase origin master
   if cat ../.gclient | grep "\"src/third_party/WebKit/*\" *: *None" > /dev/null; then
     # Special WebKit update
-    ./tools/sync-webkit-git.py
-    cd third_party/WebKit && git rebase gclient && cd ../..
+    cd third_party/WebKit && git pull --rebase origin master && cd ../..
   fi
   gclient sync --jobs=16
   echo "Everything up-to-date."
@@ -190,7 +189,7 @@ do_update() {
 
 do_webkit() {
   rm -rf third_party/WebKit
-  git clone git://git.webkit.org/WebKit.git third_party/WebKit
+  git clone http://git.chromium.org/external/Webkit.git third_party/WebKit
   cat ../.gclient | grep -v "WebKit" > ../.gclient.old
   cat ../.gclient.old | grep -B42 "custom_deps" > ../.gclient
   echo "      \"src/third_party/WebKit\": None," >> ../.gclient
