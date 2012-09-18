@@ -179,11 +179,12 @@ do_runhooks() {
 }
 
 do_update() {
+  require_clean_work_tree "update `pwd`"
   echo "Updating..."
   git fetch && git rebase origin/master
   if cat ../.gclient | grep "\"src/third_party/WebKit/*\" *: *None" > /dev/null; then
     # Special WebKit update
-    cd third_party/WebKit && git fetch && git rebase origin/master && cd ../..
+    cd third_party/WebKit && require_clean_work_tree "update `pwd`" && git fetch && git rebase origin/master && cd ../..
   fi
   gclient sync --jobs=16
   echo "Everything up-to-date."
