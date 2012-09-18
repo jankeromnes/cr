@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. "$(git --exec-path)/git-sh-setup"
+
 show_help() {
   echo "usage: cr <command> [<args>]"
   echo ""
@@ -178,10 +180,10 @@ do_runhooks() {
 
 do_update() {
   echo "Updating..."
-  git pull --rebase origin master
+  git fetch && git rebase origin/master
   if cat ../.gclient | grep "\"src/third_party/WebKit/*\" *: *None" > /dev/null; then
     # Special WebKit update
-    cd third_party/WebKit && git pull --rebase origin master && cd ../..
+    cd third_party/WebKit && git fetch && git rebase origin/master && cd ../..
   fi
   gclient sync --jobs=16
   echo "Everything up-to-date."
