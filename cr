@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. "$(git --exec-path)/git-sh-setup"
-
 show_help() {
   echo "usage: cr <command> [<args>]"
   echo ""
@@ -179,6 +177,7 @@ do_runhooks() {
 }
 
 do_update() {
+  . "$(git --exec-path)/git-sh-setup"
   require_clean_work_tree "update `pwd`"
   echo "Updating..."
   git fetch && git rebase origin/master
