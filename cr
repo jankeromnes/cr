@@ -197,6 +197,7 @@ do_webkit() {
   echo "      \"src/third_party/WebKit\": None," >> ../.gclient
   cat ../.gclient.old | grep -A42 "custom_deps" | tail -n +2 >> ../.gclient
   rm -rf ../.gclient.old
+  cd third_party/WebKit/ && git config merge.changelog.driver "perl Tools/Scripts/resolve-ChangeLogs --fix-merged --merge-driver %O %A %B" && cd ../..
 }
 
 case $1 in
