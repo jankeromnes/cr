@@ -5,16 +5,20 @@
 ## What can it do for me?
 
 - Download fresh Chromium sources (`cr clone`)
-- Build Chromium browser (`cr build`)
-- Update Chromium sources (`cr update`)
-- Install Chromium depot\_tools and dependencies (`cr clone` makes sure you have everything)
+- Autoinstall Chromium depot\_tools and dependencies (`cr clone` makes sure you have everything)
+- Build the latest Chromium browser (`cr build`)
+- Update ALL the source codes (`cr update`)
+
+And also...
+
 - Download separate WebKit sources (`cr webkit` replaces your `third_party/WebKit` with a fresh WebKit clone)
+- Help to skip builds for Web Inspector (`cr devtools` sets up hard links for inspector files)
 
 ## What not?
 
 - Run Chromium (soon)
-- Help upload Chromium patches (soon)
-- Help upload WebKit patches (soon)
+- Help doing Chromium patches (soon)
+- Help doing WebKit patches (soon)
 
 ## Usage
 
@@ -36,13 +40,13 @@
 
 (or **Update**)
 
-    sudo wget -O /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
+    sudo curl -o /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
 
 ---
 
-(also works with `curl`)
+(also works with `wget`)
 
-    sudo curl -o /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
+    sudo wget -O /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
 
 ## Uninstall
 
