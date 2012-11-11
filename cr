@@ -165,7 +165,12 @@ do_devtools() {
     echo "WARNING: $GYP_FILE already exists! Leaving as is:"
     cat "$GYP_FILE"
   else
-    cat "{\n  'variables': {\n    'debug_devtools': 1\n  }\n}" > "$GYP_FILE"
+    mkdir -p "$GYP_FILE" && rmdir "$GYP_FILE"
+    echo "{
+  'variables': {
+    'debug_devtools': 1
+  }
+}" > "$GYP_FILE"
   fi
   echo -n "Calling gclient runhooks... "
   gclient runhooks
