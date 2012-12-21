@@ -109,9 +109,9 @@ do_clean() {
 do_build() {
   BUILD_TYPE="Release"
   if [ -d "$HOME/goma" ]; then
-    BUILD_CORES="500"
+    BUILD_THREADS="500"
   else
-    BUILD_CORES="16"
+    BUILD_THREADS="16"
   fi
   if [ -z "$TARGET" ]; then
     TARGET="chrome"
@@ -126,16 +126,16 @@ do_build() {
   if [ -n "$BUILD_TYPE_CUSTOM" ]; then
     BUILD_TYPE="$BUILD_TYPE_CUSTOM"
   fi
-  echo -n "Use how many cores? [$BUILD_CORES]:"
-  read BUILD_CORES_CUSTOM
-  if [ -n "$BUILD_CORES_CUSTOM" ]; then
-    BUILD_CORES="$BUILD_CORES_CUSTOM"
+  echo -n "Number of threads? [$BUILD_THREADS]:"
+  read BUILD_THREADS_CUSTOM
+  if [ -n "$BUILD_THREADS_CUSTOM" ]; then
+    BUILD_THREADS="$BUILD_THREADS_CUSTOM"
   fi
   if [ "$GYP_GENERATORS" == "ninja" ]; then
     mkdir -p "out/$BUILD_TYPE" > /dev/null 2>&1
-    ninja -C "out/$BUILD_TYPE" $TARGET"" -j"$BUILD_CORES"
+    ninja -C "out/$BUILD_TYPE" $TARGET"" -j"$BUILD_THREADS"
   else
-    make "$TARGET" BUILDTYPE="$BUILD_TYPE" -j"$BUILD_CORES"
+    make "$TARGET" BUILDTYPE="$BUILD_TYPE" -j"$BUILD_THREADS"
   fi
 }
 
