@@ -56,7 +56,7 @@ do_clone() {
   # Create the `.gclient` file
   mkdir $CHROMIUM_HOME > /dev/null 2>&1
   cd $CHROMIUM_HOME
-  gclient config http://git.chromium.org/chromium/src.git --git-deps
+  gclient config https://chromium.googlesource.com/chromium/src.git --git-deps
 
   # Avoid checking out enormous folders
   mv .gclient{,.old}
