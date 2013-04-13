@@ -63,12 +63,11 @@ do_clone() {
   mv .gclient{,.old}
   cat .gclient.old | grep -B42 "custom_deps" > .gclient
   echo "      \"src/third_party/WebKit/LayoutTests\": None," >> .gclient
-  echo "      \"src/chrome_frame/tools/test/reference_build/chrome\": None," >> .gclient
+  echo "      \"src/chrome/tools/test/reference_build/chrome_win\": None," >> .gclient
   echo "      \"src/chrome_frame/tools/test/reference_build/chrome_win\": None," >> .gclient
-  echo "      \"src/chrome/tools/test/reference_build/chrome\": None," >> .gclient
   echo "      \"src/chrome/tools/test/reference_build/chrome_linux\": None," >> .gclient
   echo "      \"src/chrome/tools/test/reference_build/chrome_mac\": None," >> .gclient
-  echo "      \"src/chrome/tools/test/reference_build/chrome_win\": None" >> .gclient
+  echo "      \"src/third_party/hunspell_dictionaries\": None," >> .gclient
   cat .gclient.old | grep -A42 "custom_deps" | tail -n +2 >> .gclient
   rm -rf .gclient.old
 
