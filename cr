@@ -11,7 +11,6 @@ show_help() {
   echo "   gclient   Install gclient and the depot_tools"
   echo "   runhooks  Call gclient runhooks"
   echo "   update    Update a Chromium repository and its dependencies"
-  echo "   webkit    Clone separate WebKit sources into your repository"
   echo "   help      Display this helpful message"
   echo ""
 }
@@ -84,6 +83,8 @@ do_clone() {
   ./src/build/install-build-deps.sh
   gclient sync --jobs=16
   ./src/build/gyp_chromium
+
+  # TODO git config merge.changelog.driver "perl Tools/Scripts/resolve-ChangeLogs --fix-merged --merge-driver %O %A %B"
 
   echo "If there were no errors above, cloning in $CHROMIUM_HOME was successful."
   echo "Welcome to your new Chromium!"
@@ -185,23 +186,8 @@ do_update() {
   require_clean_work_tree "update `pwd`"
   echo "Updating..."
   git fetch && git rebase origin/master
-  if cat ../.gclient | grep "\"src/third_party/WebKit/*\" *: *None" > /dev/null; then
-    # Special WebKit update
-    cd third_party/WebKit && require_clean_work_tree "update `pwd`" && git fetch && git rebase origin/master && cd ../..
-  fi
   gclient sync --jobs=16
   echo "Everything up-to-date."
-}
-
-do_webkit() {
-  rm -rf third_party/WebKit
-  git clone http://git.chromium.org/external/Webkit.git third_party/WebKit
-  cat ../.gclient | grep -v "WebKit" > ../.gclient.old
-  cat ../.gclient.old | grep -B42 "custom_deps" > ../.gclient
-  echo "      \"src/third_party/WebKit\": None," >> ../.gclient
-  cat ../.gclient.old | grep -A42 "custom_deps" | tail -n +2 >> ../.gclient
-  rm -rf ../.gclient.old
-  cd third_party/WebKit/ && git config merge.changelog.driver "perl Tools/Scripts/resolve-ChangeLogs --fix-merged --merge-driver %O %A %B" && cd ../..
 }
 
 case $1 in
@@ -230,10 +216,6 @@ case $1 in
   update)
     assert_src
     do_update
-  ;;
-  webkit)
-    assert_src
-    do_webkit
   ;;
   *)
     show_help

@@ -11,14 +11,13 @@
 
 And also...
 
-- Download separate WebKit sources (`cr webkit` replaces your `third_party/WebKit` with a fresh WebKit clone)
 - Help to skip builds for Web Inspector (`cr devtools` sets up hard links for inspector files)
 
 ## What not?
 
 - Run Chromium (soon)
 - Help doing Chromium patches (soon)
-- Help doing WebKit patches (soon)
+- Help doing Blink patches (soon)
 
 ## Usage
 
@@ -33,7 +32,6 @@ And also...
        gclient   Install gclient and the depot_tools
        runhooks  Call gclient runhooks
        update    Update a Chromium repository and its dependencies
-       webkit    Clone separate WebKit sources into your repository
        help      Display this helpful message
 
 ## Install
