@@ -148,7 +148,7 @@ do_gclient() {
     if [ -n "$DEPOT_TOOLS_HOME_CUSTOM" ]; then
       DEPOT_TOOLS_HOME="$DEPOT_TOOLS_HOME_CUSTOM"
     fi
-    git clone https://git.chromium.org/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME
+    git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME
     export PATH="$PATH:$DEPOT_TOOLS_HOME"
     if ! grep -qs "$DEPOT_TOOLS_HOME" $HOME/.bashrc; then
       echo -e "\n# add chromium's depot_tools to the PATH" >> "$HOME/.bashrc"
