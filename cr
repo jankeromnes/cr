@@ -35,6 +35,11 @@ do_clone() {
   # Make sure we have depot_tools
   do_gclient
 
+  # Configure Git
+  git config --global core.autocrlf false
+  git config --global core.filemode false
+  git config --global deltaBaseCacheLimit 1G # Improve speed for large repos like Blink
+
   # Configure ninja
   if [ "$GYP_GENERATORS" != "ninja" ]; then
     echo "Configuring ninja..."
