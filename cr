@@ -26,7 +26,7 @@ do_clone() {
   fi
 
   # Ask the user where to install Chromium
-  echo -n "Where should I put chromium sources? [$CHROMIUM_HOME]:"
+  echo -n "Where should I put Chromium sources? [$CHROMIUM_HOME]:"
   read CHROMIUM_HOME_CUSTOM
   if [ -n "$CHROMIUM_HOME_CUSTOM" ]; then
     CHROMIUM_HOME="$CHROMIUM_HOME_CUSTOM"
@@ -44,7 +44,7 @@ do_clone() {
   if [ "$GYP_GENERATORS" != "ninja" ]; then
     echo "Configuring ninja..."
     export GYP_GENERATORS="ninja"
-    echo -e "\n# build chromium with ninja (faster than make)" >> "$HOME/.bashrc"
+    echo -e "\n# Build Chromium with ninja (faster than make)" >> "$HOME/.bashrc"
     echo "export GYP_GENERATORS=\"ninja\"" >> "$HOME/.bashrc"
   fi
 
@@ -83,7 +83,7 @@ do_clone() {
   fi
 
   # Get the sources
-  echo "Downloading chromium, grab a coffee..."
+  echo "Downloading Chromium, grab a coffee..."
   gclient sync --nohooks --jobs=16
   ./src/build/install-build-deps.sh
   gclient sync --jobs=16
@@ -157,7 +157,7 @@ do_gclient() {
     git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME
     export PATH="$PATH:$DEPOT_TOOLS_HOME"
     if ! grep -qs "$DEPOT_TOOLS_HOME" $HOME/.bashrc; then
-      echo -e "\n# add chromium's depot_tools to the PATH" >> "$HOME/.bashrc"
+      echo -e "\n# Add Chromium's depot_tools to the PATH" >> "$HOME/.bashrc"
       echo "export PATH=\"\$PATH:$DEPOT_TOOLS_HOME\"" >> "$HOME/.bashrc"
     fi
   }
