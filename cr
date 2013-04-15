@@ -84,7 +84,7 @@ do_clone() {
 
   # Get the sources
   echo "Downloading Chromium, grab a coffee..."
-  gclient sync --nohooks --jobs=16
+  fetch blink --nosvn=True # --nohooks --jobs=16
   ./src/build/install-build-deps.sh
   gclient sync --jobs=16
   ./src/build/gyp_chromium
