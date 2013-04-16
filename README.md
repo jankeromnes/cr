@@ -36,7 +36,7 @@ And also...
 
 ## Install
 
-(or **Update**)
+(also **Update**)
 
     su -c "curl -o /usr/local/bin/cr https://raw.github.com/jankeromnes/cr/master/cr && chmod a+x /usr/local/bin/cr"
 
@@ -48,5 +48,5 @@ And also...
 
 ## Uninstall
 
-    sudo rm -rf /usr/local/bin/cr
+    su -c "rm -rf /usr/local/bin/cr"
 
