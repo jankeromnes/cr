@@ -11,6 +11,7 @@
 
 And also...
 
+- Guarantee that you always use the latest best practices to make things go faster
 - Help to skip builds for Web Inspector (`cr devtools` sets up hard links for inspector files)
 
 ## What not?
