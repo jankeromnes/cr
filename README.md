@@ -38,13 +38,13 @@ And also...
 
 (or **Update**)
 
-    sudo curl -o /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
+    su -c "curl -o /usr/local/bin/cr https://raw.github.com/jankeromnes/cr/master/cr && chmod +x /usr/local/bin/cr"
 
 ---
 
 (also works with `wget`)
 
-    sudo wget -O /usr/local/bin/cr "https://raw.github.com/jankeromnes/cr/master/cr" && sudo chmod +x /usr/local/bin/cr
+    su -c "wget -O /usr/local/bin/cr https://raw.github.com/jankeromnes/cr/master/cr && chmod +x /usr/local/bin/cr"
 
 ## Uninstall
 
