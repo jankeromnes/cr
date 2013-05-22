@@ -41,6 +41,7 @@ do_clone() {
   git config --global deltaBaseCacheLimit 1G # Improve speed for large repos like Blink
 
   # Configure ninja
+  # TODO handle already defined GYP_GENERATORS better
   if [ "$GYP_GENERATORS" != "ninja" ]; then
     echo "Configuring ninja..."
     export GYP_GENERATORS="ninja"
@@ -136,7 +137,7 @@ do_build() {
   if [ -n "$BUILD_THREADS_CUSTOM" ]; then
     BUILD_THREADS="$BUILD_THREADS_CUSTOM"
   fi
-  if [ "$GYP_GENERATORS" == "ninja" ]; then
+  if [[ "$GYP_GENERATORS" == *"ninja"* ]]; then
     mkdir -p "out/$BUILD_TYPE" > /dev/null 2>&1
     ninja -C "out/$BUILD_TYPE" $TARGET"" -j"$BUILD_THREADS"
   else
