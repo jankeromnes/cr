@@ -136,7 +136,7 @@ do_build() {
   if [ -n "$BUILD_THREADS_CUSTOM" ]; then
     BUILD_THREADS="$BUILD_THREADS_CUSTOM"
   fi
-  if [ "$GYP_GENERATORS" == "ninja" ]; then
+  if [[ "$GYP_GENERATORS" == *"ninja"* ]]; then
     mkdir -p "out/$BUILD_TYPE" > /dev/null 2>&1
     ninja -C "out/$BUILD_TYPE" $TARGET"" -j"$BUILD_THREADS"
   else
