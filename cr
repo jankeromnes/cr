@@ -49,7 +49,6 @@ do_clone() {
   # Configure Git
   git config --global core.autocrlf false
   git config --global core.filemode false
-  git config --global deltaBaseCacheLimit 1G # Improve speed for large repos like Blink
 
   # Configure ninja
   # TODO handle already defined GYP_GENERATORS better
