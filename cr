@@ -32,6 +32,17 @@ do_clone() {
     CHROMIUM_HOME="$CHROMIUM_HOME_CUSTOM"
   fi
 
+  # Make sure we have git
+  command -v git >/dev/null 2>&1 || {
+    echo -n "Git is required to check out sources. Install git using apt-get? [Y/n]:"
+    read INSTALL_GIT_CUSTOM
+    if [ "$INSTALL_GIT_CUSTOM" == "n" ]; then
+      echo "Aborting. Please install git."
+      exit 0
+    fi
+    sudo apt-get install git
+  }
+
   # Make sure we have depot_tools
   do_gclient
 
