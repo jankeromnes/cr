@@ -124,11 +124,10 @@ do_clean() {
 
 do_build() {
   BUILD_TYPE="Release"
-  if [ -d "$HOME/goma" ]; then
-    BUILD_THREADS="500"
-  else
+  BUILD_THREADS="10000"
+  command -v goma_ctl.sh >/dev/null 2>&1 || [ -n "$GOMA_DIR" ] || {
     BUILD_THREADS="16"
-  fi
+  }
   if [ -z "$TARGET" ]; then
     TARGET="chrome"
   fi
