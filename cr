@@ -69,11 +69,20 @@ do_clone() {
     fi
   fi
 
+  if [ -z "$FETCH_RECIPE" ]; then
+    FETCH_RECIPE="blink"
+    echo -n "Will you be developing Chrome for Android? [y/N]:"
+    read ANDROID_RECIPE_CUSTOM
+    if [ "$ANDROID_RECIPE_CUSTOM" == "y" ]; then
+      FETCH_RECIPE="android"
+    fi
+  fi
+
   # Get the sources
   mkdir $CHROMIUM_HOME > /dev/null 2>&1
   cd $CHROMIUM_HOME
   echo "Downloading Chromium, grab a coffee..."
-  fetch blink --nosvn=True # --nohooks --jobs=16
+  fetch $FETCH_RECIPE --nosvn=True # --nohooks --jobs=16
   ./src/build/install-build-deps.sh
   gclient sync --jobs=16
   ./src/build/gyp_chromium
