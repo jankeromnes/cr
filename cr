@@ -69,31 +69,9 @@ do_clone() {
     fi
   fi
 
-  # Create the `.gclient` file
+  # Get the sources
   mkdir $CHROMIUM_HOME > /dev/null 2>&1
   cd $CHROMIUM_HOME
-  gclient config https://chromium.googlesource.com/chromium/src.git --git-deps
-
-  # Avoid checking out enormous folders
-  mv .gclient{,.old}
-  cat .gclient.old | grep -B42 "custom_deps" > .gclient
-  echo "      \"src/third_party/WebKit/LayoutTests\": None," >> .gclient
-  echo "      \"src/chrome/tools/test/reference_build/chrome_win\": None," >> .gclient
-  echo "      \"src/chrome_frame/tools/test/reference_build/chrome_win\": None," >> .gclient
-  echo "      \"src/chrome/tools/test/reference_build/chrome_linux\": None," >> .gclient
-  echo "      \"src/chrome/tools/test/reference_build/chrome_mac\": None," >> .gclient
-  echo "      \"src/third_party/hunspell_dictionaries\": None," >> .gclient
-  cat .gclient.old | grep -A42 "custom_deps" | tail -n +2 >> .gclient
-  rm -rf .gclient.old
-
-  # Allow users to customize the `.gclient` file
-  echo -n "Do you want to customize the $CHROMIUM_HOME/.gclient file? [y/N]:"
-  read GCLIENT_CUSTOM
-  if [ "$GCLIENT_CUSTOM" == "y" ]; then
-    vim .gclient
-  fi
-
-  # Get the sources
   echo "Downloading Chromium, grab a coffee..."
   fetch blink --nosvn=True # --nohooks --jobs=16
   ./src/build/install-build-deps.sh
