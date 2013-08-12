@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 show_help() {
   echo "usage: cr <command> [<args>]"
@@ -15,6 +15,12 @@ show_help() {
   echo ""
 }
 
+# shell init file
+SHELL_INIT="$HOME/.bashrc"
+if [ "${SHELL##*/}" == "zsh" ]; then
+  SHELL_INIT="$HOME/.zshrc"
+fi
+
 do_clone() {
   # Try to guess CHROMIUM_HOME
   if [ -z "$CHROMIUM_HOME" ]; then
@@ -26,7 +32,8 @@ do_clone() {
   fi
 
   # Ask the user where to install Chromium
-  echo -n "Where should I put Chromium sources? [$CHROMIUM_HOME]:"
+  echo 'The Chromium sources expect to live in a directory named "src".'
+  echo -n "Where should I put this src directory? [$CHROMIUM_HOME]:"
   read CHROMIUM_HOME_CUSTOM
   if [ -n "$CHROMIUM_HOME_CUSTOM" ]; then
     CHROMIUM_HOME="$CHROMIUM_HOME_CUSTOM"
@@ -55,8 +62,8 @@ do_clone() {
   if [ "$GYP_GENERATORS" != "ninja" ]; then
     echo "Configuring ninja..."
     export GYP_GENERATORS="ninja"
-    echo -e "\n# Build Chromium with ninja (faster than make)" >> "$HOME/.bashrc"
-    echo "export GYP_GENERATORS=\"ninja\"" >> "$HOME/.bashrc"
+    echo -e "\n# Build Chromium with ninja (faster than make)" >> "$SHELL_INIT"
+    echo "export GYP_GENERATORS=\"ninja\"" >> "$SHELL_INIT"
   fi
 
   # Check if the `src` folder already exists
@@ -153,9 +160,9 @@ do_gclient() {
     fi
     git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git $DEPOT_TOOLS_HOME
     export PATH="$PATH:$DEPOT_TOOLS_HOME"
-    if ! grep -qs "$DEPOT_TOOLS_HOME" $HOME/.bashrc; then
-      echo -e "\n# Add Chromium's depot_tools to the PATH" >> "$HOME/.bashrc"
-      echo "export PATH=\"\$PATH:$DEPOT_TOOLS_HOME\"" >> "$HOME/.bashrc"
+    if ! grep -qs "$DEPOT_TOOLS_HOME" "$SHELL_INIT"; then
+      echo -e "\n# Add Chromium's depot_tools to the PATH" >> "$SHELL_INIT"
+      echo "export PATH=\"\$PATH:$DEPOT_TOOLS_HOME\"" >> "$SHELL_INIT"
     fi
   }
   echo "gclient is installed as $(which gclient)"
