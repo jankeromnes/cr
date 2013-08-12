@@ -32,7 +32,8 @@ do_clone() {
   fi
 
   # Ask the user where to install Chromium
-  echo -n "Where should I put Chromium sources? [$CHROMIUM_HOME]:"
+  echo 'The Chromium sources expect to live in a directory named "src".'
+  echo -n "Where should I put this src directory? [$CHROMIUM_HOME]:"
   read CHROMIUM_HOME_CUSTOM
   if [ -n "$CHROMIUM_HOME_CUSTOM" ]; then
     CHROMIUM_HOME="$CHROMIUM_HOME_CUSTOM"
