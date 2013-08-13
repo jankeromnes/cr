@@ -15,7 +15,7 @@ show_help() {
   echo ""
 }
 
-# shell init file
+# Detect preferred shell rc file
 SHELL_INIT="$HOME/.bashrc"
 if [ "${SHELL##*/}" == "zsh" ]; then
   SHELL_INIT="$HOME/.zshrc"
@@ -32,7 +32,7 @@ do_clone() {
   fi
 
   # Ask the user where to install Chromium
-  echo 'The Chromium sources expect to live in a directory named "src".'
+  echo "The Chromium sources expect to live in a directory named \"src\"."
   echo -n "Where should I put this src directory? [$CHROMIUM_HOME]:"
   read CHROMIUM_HOME_CUSTOM
   if [ -n "$CHROMIUM_HOME_CUSTOM" ]; then
