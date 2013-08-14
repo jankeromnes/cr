@@ -118,7 +118,7 @@ do_clean() {
 
 do_build() {
   BUILD_TYPE="Release"
-  BUILD_THREADS="10000"
+  BUILD_THREADS="9999"
   command -v goma_ctl.sh >/dev/null 2>&1 || [ -n "$GOMA_DIR" ] || {
     BUILD_THREADS="16"
   }
