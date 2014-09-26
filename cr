@@ -175,6 +175,9 @@ do_devtools() {
     cat "$GYP_FILE"
   else
     mkdir -p "$GYP_FILE" && rmdir "$GYP_FILE"
+    if [ $(stat -c "%U" "$GYP_FILE") -ne "$(id -n -u)"]; then
+        echo "WARNING: $GYP_FILE is not owned by the current user!"
+    fi
     echo "{
   'variables': {
     'debug_devtools': 1
