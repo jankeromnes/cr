@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 show_help() {
   echo "usage: cr <command> [<args>]"
